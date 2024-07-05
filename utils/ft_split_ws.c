@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-size_t	ft_word_count(char const *s, char c)
+size_t	ft_word_count_ws(char const *s)
 {
 	size_t	i;
 	size_t	count;
@@ -11,19 +11,19 @@ size_t	ft_word_count(char const *s, char c)
 	in_word = 0;
 	while (s[i])
 	{
-		if (s[i] != c && in_word == 0)
+		if (!is_ws(s[i]) && in_word == 0)
 		{
 			in_word = 1;
 			count++;
 		}
-		else if (s[i] == c && in_word == 1)
+		else if (is_ws(s[i]) && in_word == 1)
 			in_word = 0;
 		i++;
 	}
 	return (count);
 }
 
-static void	*free_all(char **all_words, int j)
+static void	*free_all_ws(char **all_words, int j)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ static void	*free_all(char **all_words, int j)
 	return (NULL);
 }
 
-static char	*allocate_word(char const *s, size_t start, size_t end, int mode)
+static char	*allocate_word_ws(char const *s, size_t start, size_t end, int mode)
 {
 	char	*word;
 
@@ -53,7 +53,7 @@ static char	*allocate_word(char const *s, size_t start, size_t end, int mode)
 	return (word);
 }
 
-static char	**split_into_words(char const *s, char c, size_t word_count, int mode)
+static char	**split_into_words_ws(char const *s, size_t word_count, int mode)
 {
 	size_t	i;
 	size_t	j;
@@ -72,27 +72,27 @@ static char	**split_into_words(char const *s, char c, size_t word_count, int mod
 	j = 0;
 	while (j < word_count)
 	{
-		while (s[i] == c)
+		while (is_ws(s[i]))
 			i++;
 		start = i;
-		while (s[i] && s[i] != c)
+		while (s[i] && !is_ws(s[i]))
 			i++;
-		all_words[j] = allocate_word(s, start, i, mode);
+		all_words[j] = allocate_word_ws(s, start, i, mode);
 		if (!all_words[j] && mode == MANUAL)
-			return (free_all(all_words, j));
+			return (free_all_ws(all_words, j));
 		j++;
 	}
 	all_words[j] = NULL;
 	return (all_words);
 }
 
-char	**ft_split(char const *s, char c, int mode)
+char	**ft_split_ws(char const *s, int mode)
 {
 	size_t	word_count;
 
 	if (!s || !*s)
 		return (NULL);
-	word_count = ft_word_count(s, c);
-	return (split_into_words(s, c, word_count, mode));
+	word_count = ft_word_count_ws(s);
+	return (split_into_words_ws(s,  word_count, mode));
 }
 
