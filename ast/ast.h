@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 17:53:40 by mboukour          #+#    #+#             */
-/*   Updated: 2024/07/12 17:54:52 by mboukour         ###   ########.fr       */
+/*   Created: 2024/07/12 17:45:36 by mboukour          #+#    #+#             */
+/*   Updated: 2024/07/12 17:50:14 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#ifndef AST_H
+# define AST_H
 
-char	*get_pwd(void)
-{
-	char	*pwd;
+# include "../minishell.h"
 
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-		return (NULL);
-	return (pwd);
-}
+t_redir		*handle_before_redirs(t_middle **middled);
+t_redir		*handle_after_redirs(t_middle **middled);
+t_treenode	*new_treenode(t_middle *middled);
+void		nullify_all(t_treenode *node);
+t_arg		*copy_arg(t_arg *arg);
+t_redir		*ft_lstnew_redir(t_middle *middled);
+bool		valid_parse_cmd_middle(t_middle *middled);
 
-int	pwd(t_data *data)
-{
-	char	*pwd;
-
-	if (data->pwd)
-		printf("%s\n", data->pwd);
-	else
-	{
-		pwd = get_pwd();
-		if (!pwd)
-		{
-			perror("pwd: error retrieving current directory: getcwd: ");
-			return (1);
-		}
-		printf("%s\n", pwd);
-		free(pwd);
-	}
-	return (0);
-}
+#endif
