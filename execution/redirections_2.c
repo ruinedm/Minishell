@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amabrouk <amabrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:35:59 by amabrouk          #+#    #+#             */
-/*   Updated: 2024/07/15 02:15:59 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/07/15 09:32:59 by amabrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_dup_heredoc(t_treenode *root, t_redir *redir, char *p, t_env **env)
 
 	fd = open(p, O_RDONLY);
 	if (fd == -1)
-		fd_not_open(root, redir, env);
+		return (fd_not_open(root, redir, env));
 	store_fds(fd);
 	if (redir->actual_here_doc)
 	{

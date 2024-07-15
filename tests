@@ -1,0 +1,6 @@
+export A
+getcwd(c, n) NULL
+$s ls
+exit "  8   9 "
+^D should exit with last exit_status
+(ls) > file

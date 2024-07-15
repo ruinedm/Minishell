@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amabrouk <amabrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 15:53:09 by mboukour          #+#    #+#             */
-/*   Updated: 2024/07/15 06:17:22 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/07/15 09:03:56 by amabrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	launch_minishell(t_env **env, t_data *data)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sigint_handler);
 		save_terminal(&saved_attributes, env);
-		input = readline("GoatShell 🐐: ");
+		input = readline("GoatShell 🐐$ ");
 		store_mallocs(input);
 		if (!input)
 			return (ft_putstr_fd(1, "exit\n"), exit_core(0), 0);

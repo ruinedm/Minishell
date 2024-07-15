@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amabrouk <amabrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:37:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/07/13 18:17:50 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/07/15 11:55:17 by amabrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	set_joinables(char *str, bool *before_joinable, bool *after_joinable)
 	while (str[i] && str[i] != '=')
 		i++;
 	i++;
-	if (is_ws(str[i]))
+	if (i < ft_strlen(str) && is_ws(str[i]))
 		*before_joinable = false;
-	while (str[i])
+	while (i < ft_strlen(str) && str[i])
 		i++;
 	i--;
-	if (is_ws(str[i]))
+	if (i < ft_strlen(str) && is_ws(str[i]))
 		*after_joinable = false;
 }
 

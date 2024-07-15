@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amabrouk <amabrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:47:27 by mboukour          #+#    #+#             */
-/*   Updated: 2024/07/13 22:16:09 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:02:57 by amabrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	remove_additional_slashes(char *path)
 	while (path[i])
 		i++;
 	i--;
-	while (path[i] == '/')
+	while (path && path[i] == '/')
 		path[i--] = '\0';
 }
 
@@ -46,7 +46,7 @@ int	get_i_till(int mode, char **sp_res)
 	}
 	else
 	{
-		while (sp_res[i] && ft_strcmp(sp_res[i], "..")
+		while (sp_res && sp_res[i] && ft_strcmp(sp_res[i], "..")
 			&& ft_strcmp(sp_res[i], "."))
 			i++;
 	}

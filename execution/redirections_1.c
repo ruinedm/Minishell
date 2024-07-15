@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amabrouk <amabrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:28:41 by amabrouk          #+#    #+#             */
-/*   Updated: 2024/07/15 06:04:16 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/07/15 09:33:57 by amabrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,10 @@ void	ft_redir_out(t_redir *redir, t_treenode *root, t_env **env)
 	else if (redir->token == REDIR_OUT)
 		fd = open(redir->redir_string, O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
-	{
-		fd_not_open(root, redir, env);
-		return ;
-	}
+		return (fd_not_open(root, redir, env));
 	store_fds(fd);
 	if (dup2(fd, 1) == -1)
-	{
-		fd_not_open(root, redir, env);
-		return ;
-	}
+		return (fd_not_open(root, redir, env));
 	change_status(env, 0);
 	close(fd);
 	remove_fd_node(fd);
@@ -82,7 +76,7 @@ void	ft_heredoc(t_redir *redir, t_treenode *root, t_env **env)
 	here_doc_path = get_here_doc_path();
 	fd = open(here_doc_path, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd == -1)
-		fd_not_open(root, redir, env);
+		return (fd_not_open(root, redir, env));
 	store_fds(fd);
 	if (redir->here_doc_buffer)
 		ft_heredoc_buffer(redir, env, fd);
